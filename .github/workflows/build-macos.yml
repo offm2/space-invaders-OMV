@@ -12,11 +12,11 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    # Passo 1: Descarregar o repositório
+    # Passo 1: Descarregar o repositório (v4 usa Node atualizado)
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Passo 2: Configurar o ambiente Python
+    # Passo 2: Configurar o ambiente Python (v5 já está atualizado e sem avisos de Node antigo)
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -51,7 +51,6 @@ jobs:
         rm -R icon.iconset
 
     # Passo 6: Compilar a aplicação com o PyInstaller apontando para o space_invaders.py
-    # O '--add-data' garante que o icon.png é copiado para dentro do pacote final da app
     - name: Build with PyInstaller
       run: |
         pyinstaller --noconfirm --windowed \
@@ -66,7 +65,7 @@ jobs:
         cd dist
         zip -r ../SpaceInvadersOMV-macOS.zip SpaceInvadersOMV.app
 
-    # Passo 8: Upload do ficheiro final para o GitHub
+    # Passo 8: Upload do ficheiro final usando a versão v4 (Node atualizado)
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
